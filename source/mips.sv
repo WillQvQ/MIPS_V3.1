@@ -11,20 +11,19 @@ module mips#(parameter N = 64)(
     input   logic [4:0] checka,
     output  logic [N-1:0]check
 );
-    logic       pcen, irwrite, iord, lbu;
-    logic       memtoreg, regdst, regwrite, zero;
-    logic       alusrca;    
-    logic [2:0] alusrcb;    
+    logic       iord, lbu;
+    logic       memtoreg, regdst, regwrite, zero;  
+    logic [1:0] alusrc;    
     logic [3:0] alucontrol;
     logic [1:0] pcsrc, ltype;         
     logic [5:0] op, funct;
-    controller controller(clk, reset, op, funct, zero,
-                        pcen, memwrite, irwrite, regwrite, dtype,
-                        iord, memtoreg, regdst, alusrca,
-                        alusrcb, pcsrc, alucontrol, ltype, state);
-    datapath datapath(clk, reset, pcen, irwrite, regwrite, dtype,
-                    iord, memtoreg, regdst, alusrca, alusrcb, 
-                    pcsrc, alucontrol, ltype, op, funct,
-                    zero, dataadr, writedata, readdata, pclow,
-                    checka,check);
+    
+
+    datapath datapath(clk, reset, op, funct, zero, pcsrc,
+                        regwrite,memtoreg,memwrite,iord,dtype,
+                        ltype, regdst,alusrc,alucontrol, dataadr,
+                        writedata, readdata, pclow, checka,check);
+    controller controller(clk, reset, op, funct, iord, dtype,
+                        regwrite,memtoreg, memwrite, regdst,
+                        alusrc,alucontrol, pcsrc);
 endmodule
