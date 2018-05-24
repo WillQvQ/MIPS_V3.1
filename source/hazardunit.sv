@@ -2,7 +2,7 @@
 
 module hazardunit(
     input   logic       clk,reset,
-    input   logic       branchD, jumpD,
+    input   logic       branchD,
     input   logic [4:0] rsD,rtD,rsE,rtE,
     input   logic [4:0] writeregE,writeregM,writeregW,
     input   logic       memtoregE, memtoregM,regwriteE,regwriteM,regwriteW,
@@ -10,10 +10,9 @@ module hazardunit(
     output  logic       ForwardAD,ForwardBD,
     output  logic [1:0] ForwardAE,ForwardBE
 );
-    logic   lwStallD, branchStallD;
+    logic   lwStallD, branchStallD, jumpStallD;
     assign ForwardAD = rsD !=0 & (rsD == writeregM) & regwriteM;
     assign ForwardBD = rtD !=0 & (rtD == writeregM) & regwriteM;
-    // forwarding sources to E stage (ALU)
     always_comb begin
         ForwardAE = 2'b00; ForwardBE = 2'b00;
         if (rsE != 0)
@@ -27,12 +26,10 @@ module hazardunit(
             else if (rtE == writeregW & regwriteW)
                 ForwardBE = 2'b01;
     end
-    // stalls
     assign #1 lwStallD = memtoregE & (rtE == rsD | rtE == rtD);
     assign #1 branchStallD = branchD & (regwriteE & (writeregE == rsD | writeregE == rtD) | 
                                        memtoregM & (writeregM == rsD | writeregM == rtD));
     assign #1 StallD = lwStallD | branchStallD;
     assign #1 StallF = StallD;
-    // stalling D stalls all previous stages
-    assign #1 FlushE = StallD;
+    assign #1 FlushE = StallD | jumpStallD;
 endmodule

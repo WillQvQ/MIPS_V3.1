@@ -41,7 +41,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [N-1:0]   euqalAD,euqalBD;
     logic           equalD;
     assign instradr = pcF;
-    hazardunit      hazardunit(clk,reset,branchD,jumpD,rsD,rtD,rsE,rtE,
+    hazardunit      hazardunit(clk,reset,branchD,rsD,rtD,rsE,rtE,
                             writeregE,writeregM,writeregW,
                             memtoregE,memtoregM,regwriteE,regwriteM,regwriteW,
                             StallF,StallD,FlushE,

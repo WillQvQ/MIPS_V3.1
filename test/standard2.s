@@ -9,11 +9,14 @@ main:   addi $2,$0,5	#2=5
         slt  $4,$3,$4   #4=0
         beq  $4,$0,around # 0 = 0
         addi $5,$0,0    
-around: slti  $4,$7,5  #4=1
-        add  $7,$4,$5  #7=12
-        sub  $7,$7,$2  #7=7
-        sw   $7,68($3) #[0x50]=7
-        lw   $2,80($0) #2=[0x50]=7
-        j    end       # go to end
-        addi $2,$0,1   
-end:    sw   $2,84($0) #[0x54]=7
+around: slti  $4,$7,5   #4=1
+        add  $7,$4,$5   #7=12
+        sub  $7,$7,$2   #7=7
+        sw   $7,84($3)  #[0x60]=7
+        lw   $2,96($0)  #2=[0x60]=7
+        j    end        # go to end
+        sw   $7,80($3)  #[0x5b]=7 
+end:    sw   $2,100($0)  #[0x64]=7
+        j    main       # do it again
+        addi $7,$0,7    #7=7
+	andi $7,$7,3	#7=3 

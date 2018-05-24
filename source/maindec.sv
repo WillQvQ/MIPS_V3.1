@@ -39,5 +39,6 @@ module maindec(
             ORI:    controls <= 12'b100_00_10_00_010;
             SLTI:   controls <= 12'b100_00_10_00_011;
             BEQ:    controls <= 12'b000_00_00_10_000;
+            J:      controls <= 12'b000_00_00_01_000;
         endcase
 endmodule
