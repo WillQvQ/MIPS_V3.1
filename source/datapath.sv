@@ -6,8 +6,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     input   logic       bneD,branchD,jumpD,
     input   logic       regwriteE,regwriteM,regwriteW,
     input   logic       memtoregE,memtoregM,memtoregW,
-    input   logic       dtype,
-    input   logic [1:0] ltype,
+    input   logic [2:0] readtypeM,
     input   logic       regdstE,
     input   logic [1:0] alusrcE,
     input   logic [3:0] alucontrolE,
@@ -29,7 +28,8 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [N-1:0]   signimmD,zeroimmD,signimmE,zeroimmE;
     logic [N-1:0]   signbyteD,zerobyteD,signbyteE,zerobyteE;
     logic [W-1:0]   signimm4D;
-    logic [3:0]     mbyte;
+    logic [B-1:0]   mbyte;
+    logic [N-1:0]   mbytezext,mbytesext,mwordzext,mwordsext;
     logic [N-1:0]   writedataE,writedataM;
     logic [4:0]     writeregE,writeregM,writeregW;
     logic [N-1:0]   readdataM,readdataW;
@@ -88,7 +88,13 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     //Stage M
     assign dataadr   =  aluoutM;
     assign writedata =  writedataM; 
-    assign readdataM =  readdata;
+    mux4 #(B)       lbmux(readdata[31:24], readdata[23:16], readdata[15:8],
+                        readdata[7:0], dataadr[1:0], mbyte);
+    zeroext #(B,N)  lbze(mbyte, mbytezext);
+    signext #(B,N)  lbse(mbyte, mbytesext);
+    zeroext #(W,N)  lwze(readdata[31:0], mwordzext);
+    signext #(W,N)  lwse(readdata[31:0], mwordsext);
+    mux5    #(N)    datamux(mwordsext,mwordzext,mbytesext,mbytezext,readdata,readtypeM,readdataM);
     flopr #(133)    regM2W(clk,reset,//64+64+5=133
                         {readdataM,aluoutM,writeregM},
                         {readdataW,aluoutW,writeregW});

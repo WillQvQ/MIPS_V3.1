@@ -2,7 +2,7 @@
 
 module mem#(parameter N = 64, L = 128)(
     input   logic           clk, 
-    input   logic           readtype,
+    input   logic           dword,
     input   logic [1:0]     memwrite,
     input   logic [N-1:0]   dataadr, writedata,
     input   logic [31:0]    instradr,
@@ -16,7 +16,7 @@ module mem#(parameter N = 64, L = 128)(
     initial
         $readmemh("C:/Users/will131/Documents/workspace/MIPS_V3.1/memfile.dat",RAM);
     assign instr = instradr[2] ? RAM[instradr[31:3]][31:0] : RAM[instradr[31:3]][63:32];
-    assign readdata = readtype ? RAM[dataadr[N-1:3]] : {32'b0,word};
+    assign readdata = dword ? RAM[dataadr[N-1:3]] : {32'b0,word};
     assign check = checka[0] ? RAM[checka][31:0] : RAM[checka][63:32];
     assign word = dataadr[2] ? RAM[dataadr[N-1:3]][31:0] : RAM[dataadr[N-1:3]][63:32];
     always @(posedge clk)

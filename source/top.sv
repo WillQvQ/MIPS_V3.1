@@ -13,8 +13,8 @@ module top#(parameter N = 64)(
     input   logic [7:0]     checkma,
     output  logic [31:0]    checkm
 );
-    logic readtype;
-    mips mips(clk,reset,dataadr,writedata,memwrite,instradr,instr,readtype,readdata,pclow,checkra,checkr);
-    mem mem(clk,readtype,memwrite,dataadr,writedata,instradr,instr,readdata,checkma,checkm);
+    logic dword;
+    mips mips(clk,reset,dataadr,writedata,memwrite,instradr,instr,dword,readdata,pclow,checkra,checkr);
+    mem mem(clk,dword,memwrite,dataadr,writedata,instradr,instr,readdata,checkma,checkm);
 
 endmodule
