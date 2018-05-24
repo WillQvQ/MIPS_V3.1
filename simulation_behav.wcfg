@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="7982000fs"></ZoomStartTime>
-      <ZoomEndTime time="234782001fs"></ZoomEndTime>
-      <Cursor1Time time="87582000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="227200001fs"></ZoomEndTime>
+      <Cursor1Time time="90000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="113"></NameColumnWidth>
+      <NameColumnWidth column_width="111"></NameColumnWidth>
       <ValueColumnWidth column_width="54"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="35" />
+   <WVObjectSize size="33" />
    <wvobject fp_name="/simulation/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -107,14 +107,6 @@
    <wvobject fp_name="/simulation/top/mem/memwrite" type="array">
       <obj_property name="ElementShortName">memwrite[1:0]</obj_property>
       <obj_property name="ObjectShortName">memwrite[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rd1" type="array">
-      <obj_property name="ElementShortName">rd1[63:0]</obj_property>
-      <obj_property name="ObjectShortName">rd1[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rd2" type="array">
-      <obj_property name="ElementShortName">rd2[63:0]</obj_property>
-      <obj_property name="ObjectShortName">rd2[63:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/simulation/top/mips/datapath/srca1D" type="array">
       <obj_property name="ElementShortName">srca1D[63:0]</obj_property>

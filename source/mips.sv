@@ -15,15 +15,16 @@ module mips#(parameter N = 64)(
     logic       memtoreg, regdst, regwrite, zero;  
     logic [1:0] alusrc;    
     logic [3:0] alucontrol;
-    logic [1:0] pcsrc, ltype;         
+    logic [1:0] ltype; 
+    logic       branch,jump;        
     logic [5:0] op, funct;
     
 
-    datapath datapath(clk, reset, op, funct, zero, pcsrc,
+    datapath datapath(clk, reset, op, funct, zero, branch, jump,
                         regwrite,memtoreg,memwrite,iord,dtype,
                         ltype, regdst,alusrc,alucontrol, dataadr,
                         writedata, readdata, pclow, checka,check);
     controller controller(clk, reset, op, funct, iord, dtype,
                         regwrite,memtoreg, memwrite, regdst,
-                        alusrc,alucontrol, pcsrc);
+                        alusrc,alucontrol, branch,jump);
 endmodule

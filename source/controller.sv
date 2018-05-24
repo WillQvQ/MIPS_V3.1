@@ -8,12 +8,12 @@ module controller(
     output  logic       regwrite, memtoreg, memwrite, regdst,
     output  logic [1:0] alusrc,
     output  logic [3:0] alucontrol,
-    output  logic [1:0] pcsrc
+    output  logic       branch,jump
 ); 
     logic [2:0] aluop;
     assign dtype = 1'b0;
     maindec maindec(clk, reset, op, iord,
                     regwrite,memtoreg, memwrite, regdst,
-                    alusrc, pcsrc, aluop);
+                    alusrc, branch, jump, aluop);
     aludec aludec(funct, aluop, alucontrol);
 endmodule

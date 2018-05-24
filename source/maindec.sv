@@ -7,7 +7,7 @@ module maindec(
     output  logic       iord, 
     output  logic       regwrite, memtoreg, memwrite, regdst, 
     output  logic [1:0] alusrc,
-    output  logic [1:0] pcsrc,
+    output  logic       branch, jump,
     output  logic [2:0] aluop
 ); 
     parameter RTYPE = 6'b000000;
@@ -28,7 +28,7 @@ module maindec(
     parameter DADDI = 6'b011000;
     logic [11:0] controls;
     assign {iord,regwrite,memtoreg, memwrite, regdst,
-            alusrc, pcsrc, aluop} = controls; 
+            alusrc, branch, jump, aluop} = controls; 
     always_comb
         case (op)
             RTYPE:  controls <= 12'b01001_00_00_010;

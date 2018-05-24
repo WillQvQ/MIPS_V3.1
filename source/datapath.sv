@@ -4,7 +4,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     input   logic       clk, reset,
     output  logic [5:0] op, funct,
     output  logic       zero,
-    input   logic [1:0] pcsrc,
+    input   logic       branchD,jumpD,
     input   logic       regwriteD,memtoregD,
     input   logic [1:0] memwriteD,
     input   logic       iord,
@@ -27,15 +27,8 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [1:0]     alusrcE;
     logic [3:0]     alucontrolE;
     logic           regdstE;
-    logic           StallF,StallD,ForwardAD,ForwardBD,FlushE;
+    logic           StallF,StallD,ForwardAD,ForwardBD,FlushD,FlushE;
     logic [1:0]     ForwardAE,ForwardBE;
-    assign StallF = 1'b1;
-    assign StallD = 1'b1;
-    assign ForwardAD = 1'b0;
-    assign ForwardBD = 1'b0;
-    assign FlushE = 1'b0;
-    assign ForwardAE = 1'b0;
-    assign ForwardBE = 1'b0;
     logic [W-1:0]   pcnextF,pcF,pc4F,pc4D,pcbranchD;
     logic [W-1:0]   instrD;
     logic [5:0]     rsD,rtD,rdD,rsE,rtE,rdE;
@@ -43,40 +36,48 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [N-1:0]   signbyteD,zerobyteD,signbyteE,zerobyteE;
     logic [W-1:0]   signimm4D;
     logic [3:0]     mbyte;
-    logic [N-1:0]   rd1,rd2;
     logic [N-1:0]   writedataE,writedataM;
     logic [4:0]     writeregE,writeregM,writeregW;
     logic [N-1:0]   readdataM,readdataW;
     logic [N-1:0]   aluoutE,aluoutM,aluoutW;
     logic [N-1:0]   resultW;
-    logic [N-1:0]   srca1D,srcb1D,srca1E,srcb1E,srcaE,srcb2E,srcbE;
+    logic [N-1:0]   srca1D,srcb1D,srca1E,srcb1E,srcaE,srcbE;
     logic           zero;
+    logic [1:0]     pcsrcD;
+    logic           equal1D,equal2D,equalD;
     assign dataadr= {32'b0,pcF};
+    hazardunit      hazardunit(branchD,jumpD,rsD,rtD,rsE,rtE,
+                            writeregE,writeregM,writeregW,
+                            memtoregE,memtoregM,regwriteE,regwriteM,regwriteW,
+                            StallF,StallD,FlushE,
+                            ForwardAD,ForwardBD,ForwardAE,ForwardBE);
     //Stage F
-    flopenr #(W)    pcreg(clk, reset, StallF, pcnextF, pcF);
+    flopenr #(W)    pcreg(clk, reset, ~StallF, pcnextF, pcF);
+
     assign  pclow = pcF[9:2];
     
     adder   #(W)    pcplus4(pcF,32'b100,pc4F);
-    mux3    #(W)    pcmux(pc4F,pcbranchD,{pc4D[31:28],instrD[25:0],2'b00},pcsrc,pcnextF);
-    flopencr#(64)   regF2D(clk,reset,StallD,1'b0,//32+32=64
+    mux3    #(W)    pcmux(pc4F,pcbranchD,{pc4D[31:28],instrD[25:0],2'b00},pcsrcD,pcnextF);
+    flopencr#(64)   regF2D(clk,reset,~StallD,FlushD,//32+32=64
                         {readdata[W-1:0],pc4F},
                         {instrD,pc4D});
-    assign FlushD = pcsrc[0]|pcsrc[1];//not sure
     //Stage D
     assign  op    = instrD[31:26];
     assign  funct = instrD[5:0];
     assign  rsD   = instrD[25:21];
     assign  rtD   = instrD[20:16];
     assign  rdD   = instrD[15:11];
-    regfile#(N,32)  regfile(clk,regwriteD,rsD,rtD,writeregW,resultW,rd1,rd2,checka,check);
+    regfile#(N,32)  regfile(clk,regwriteD,rsD,rtD,writeregW,resultW,srca1D,srcb1D,checka,check);
     signext#(I,N)   signext(instrD[15:0],signimmD);
     zeroext#(I,N)   zeroext(instrD[15:0],zeroimmD);
     sl2     #(W)    sl2(signimmD[W-1:0],signimm4D);
     adder   #(W)    branchcalc(pcF,signimm4D,pcbranchD);
-    mux2    #(N)    admux(rd1,aluoutM,ForwardAD,srca1D);
-    mux2    #(N)    bdmux(rd2,aluoutM,ForwardBD,srcb1D);
-    
-    flopcr#(156)    regD2E(clk,reset,1'b0,//64*2+6*3+3+4+2+1=128+28=156
+    mux2    #(N)    eq1mux(srca1D,aluoutM,ForwardAD,equal1D);
+    mux2    #(N)    eq2mux(srcb1D,aluoutM,ForwardBD,equal2D);
+    assign  equalD= equal1D==equal2D;
+    assign  pcsrcD= {jumpD,branchD & equalD};
+    assign  FlushD= pcsrcD[0] | pcsrcD[1];
+    flopcr#(156)    regD2E(clk,reset,FlushE,//64*2+6*3+3+4+2+1=128+28=156
                         {srca1D,srcb1D,rsD,rtD,rdD,regwriteD,memtoregD,memwriteD[0],alucontrolD,alusrcD,regdstD},
                         {srca1E,srcb1E,rsE,rtE,rdE,regwriteE,memtoregE,memwriteE,alucontrolE,alusrcE,regdstE});
     //Stage E
