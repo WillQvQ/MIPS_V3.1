@@ -4,8 +4,8 @@
 module maindec(
     input   logic       clk, reset,   
     input   logic [5:0] op,
-    output  logic       iord, 
-    output  logic       regwrite, memtoreg, memwrite, regdst, 
+    output  logic       regwrite, memtoreg, regdst,
+    output  logic [1:0] memwrite, 
     output  logic [1:0] alusrc,
     output  logic       branch, jump,
     output  logic [2:0] aluop
@@ -27,11 +27,17 @@ module maindec(
     parameter SLTI  = 6'b001010;
     parameter DADDI = 6'b011000;
     logic [11:0] controls;
-    assign {iord,regwrite,memtoreg, memwrite, regdst,
+    assign {regwrite,memtoreg, regdst, memwrite,
             alusrc, branch, jump, aluop} = controls; 
     always_comb
         case (op)
-            RTYPE:  controls <= 12'b01001_00_00_010;
-            SW:     controls <= 12'b00010_00_00_000;
+            RTYPE:  controls <= 12'b101_00_00_00_010;
+            SW:     controls <= 12'b000_01_00_00_000;
+            LW:     controls <= 12'b110_00_00_00_000;
+            // ADDI:   controls <= 12'b
+            // ANDI:
+            // ORI:
+            // SLTI:
+            // BEQ:
         endcase
 endmodule

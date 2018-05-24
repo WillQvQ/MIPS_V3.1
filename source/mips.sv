@@ -3,7 +3,9 @@
 module mips#(parameter N = 64)(
     input   logic       clk, reset,
     output  logic[N-1:0]dataadr, writedata,
-    output  logic [1:0] memwrite,
+    output  logic [1:0] memwriteM,
+    output  logic [31:0]instradr,
+    input   logic [31:0]instr,
     output  logic       dtype,
     input   logic[N-1:0]readdata,
     output  logic [7:0] pclow,
@@ -11,20 +13,25 @@ module mips#(parameter N = 64)(
     input   logic [4:0] checka,
     output  logic [N-1:0]check
 );
-    logic       iord, lbu;
-    logic       memtoreg, regdst, regwrite, zero;  
-    logic [1:0] alusrc;    
-    logic [3:0] alucontrol;
+    logic       lbu;
+    logic       memtoregE,memtoregM,memtoregW;  
+    logic [1:0] alusrcE;    
+    logic [3:0] alucontrolE;
     logic [1:0] ltype; 
-    logic       branch,jump;        
+    logic       branchD,jumpD;       
+    logic       regdstE, regwriteE,regwriteM,regwriteW; 
     logic [5:0] op, funct;
-    
+    logic       FlushE;
 
-    datapath datapath(clk, reset, op, funct, zero, branch, jump,
-                        regwrite,memtoreg,memwrite,iord,dtype,
-                        ltype, regdst,alusrc,alucontrol, dataadr,
-                        writedata, readdata, pclow, checka,check);
-    controller controller(clk, reset, op, funct, iord, dtype,
-                        regwrite,memtoreg, memwrite, regdst,
-                        alusrc,alucontrol, branch,jump);
+    datapath datapath(clk, reset, op, funct, branchD, jumpD,
+                        regwriteE, regwriteM, regwriteW,
+                        memtoregE, memtoregM, memtoregW,
+                        dtype, ltype, regdstE,
+                        alusrcE,alucontrolE, dataadr,
+                        writedata, readdata, instradr,instr,
+                        FlushE, pclow, checka, check);
+    controller controller(clk, reset, op, funct, FlushE, dtype,
+                        regdstE, regwriteE,regwriteM,regwriteW,
+                        memtoregE,memtoregM,memtoregW, memwriteM,
+                        alusrcE, alucontrolE, branchD, jumpD);
 endmodule

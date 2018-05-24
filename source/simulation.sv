@@ -13,7 +13,8 @@ module simulation();
     logic [4:0] checka;
     logic [63:0]check;
     logic [31:0]memdata;
-    top top(clk,reset,writedata,dataadr,memwrite,readdata,pclow,checka,check,addr,memdata);
+    logic [31:0]instradr,instr;
+    top top(clk,reset,writedata,dataadr,memwrite,instradr,instr,readdata,pclow,checka,check,addr,memdata);
     
     initial begin
         cnt <= 7'b0;
@@ -38,7 +39,7 @@ module simulation();
             end
         end
         cnt = cnt + 1;
-        if(cnt === 32)begin
+        if(cnt === 16)begin
             $display("Some error occurs!");
             $stop;
         end

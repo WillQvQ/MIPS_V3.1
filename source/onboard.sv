@@ -27,6 +27,7 @@ module onboard(
     logic [31:0]check;
     logic [63:0]check64;
 	logic [31:0]memdata;
+    logic [31:0]instradr,instr;
 	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign writedata = writedata64[31:0];
 	assign readdata = readdata64[31:0];
@@ -35,7 +36,7 @@ module onboard(
 	assign checka = addr[4:0];
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
-	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,checka,check64,addr,memdata);
+	top top(clk,reset,writedata64,dataadr64,memwrite,instradr,instr,readdata64,pclow,checka,check64,addr,memdata);
 	assign showdata = show ? memdata:{addr,check[7:0],pclow,3'b0,stateout};
 	assign data = memwrite[0]?datamem:showdata;
 	initial cnt=2'b0;
