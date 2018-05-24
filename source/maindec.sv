@@ -7,7 +7,7 @@ module maindec(
     output  logic       regwrite, memtoreg, regdst,
     output  logic [1:0] memwrite, 
     output  logic [1:0] alusrc,
-    output  logic       branch, jump,
+    output  logic       bne, branch, jump,
     output  logic [2:0] aluop
 ); 
     parameter RTYPE = 6'b000000;
@@ -26,19 +26,20 @@ module maindec(
     parameter ORI   = 6'b001101;
     parameter SLTI  = 6'b001010;
     parameter DADDI = 6'b011000;
-    logic [11:0] controls;
+    logic [12:0] controls;
     assign {regwrite,memtoreg, regdst, memwrite,
-            alusrc, branch, jump, aluop} = controls; 
+            alusrc, bne, branch, jump, aluop} = controls; 
     always_comb
         case (op)
-            RTYPE:  controls <= 12'b101_00_00_00_111;
-            SW:     controls <= 12'b000_01_01_00_000;
-            LW:     controls <= 12'b110_00_01_00_000;
-            ADDI:   controls <= 12'b100_00_01_00_000;
-            ANDI:   controls <= 12'b100_00_10_00_001;
-            ORI:    controls <= 12'b100_00_10_00_010;
-            SLTI:   controls <= 12'b100_00_10_00_011;
-            BEQ:    controls <= 12'b000_00_00_10_000;
-            J:      controls <= 12'b000_00_00_01_000;
+            RTYPE:  controls <= 13'b101_00_00_000_111;
+            SW:     controls <= 13'b000_01_01_000_000;
+            LW:     controls <= 13'b110_00_01_000_000;
+            ADDI:   controls <= 13'b100_00_01_000_000;
+            ANDI:   controls <= 13'b100_00_10_000_001;
+            ORI:    controls <= 13'b100_00_10_000_010;
+            SLTI:   controls <= 13'b100_00_10_000_011;
+            BEQ:    controls <= 13'b000_00_00_010_000;
+            BNE:    controls <= 13'b000_00_00_110_000;
+            J:      controls <= 13'b000_00_00_001_000;
         endcase
 endmodule

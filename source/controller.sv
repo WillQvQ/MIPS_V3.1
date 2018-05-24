@@ -10,7 +10,7 @@ module controller(
     output  logic [1:0] memwriteM,
     output  logic [1:0] alusrcE,
     output  logic [3:0] alucontrolE,
-    output  logic       branchD,jumpD
+    output  logic       bneD,branchD,jumpD
 ); 
     logic [2:0] aluopD;
     logic [1:0] memwriteD,memwriteE;
@@ -21,7 +21,7 @@ module controller(
     assign dtype = 1'b0;//should be modified for B/W/D
     maindec maindec(clk, reset, op,
                     regwriteD,memtoregD, regdstD, memwriteD,
-                    alusrcD, branchD, jumpD, aluopD);
+                    alusrcD, bneD, branchD, jumpD, aluopD);
     aludec aludec(funct, aluopD, alucontrolD);
 
     

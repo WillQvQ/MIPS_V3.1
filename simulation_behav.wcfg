@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="218248250fs"></ZoomStartTime>
-      <ZoomEndTime time="280598251fs"></ZoomEndTime>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="321798146fs"></ZoomEndTime>
       <Cursor1Time time="242822000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="87"></ValueColumnWidth>
+      <ValueColumnWidth column_width="85"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="52" />
+   <WVObjectSize size="40" />
    <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">
       <obj_property name="ElementShortName">rsD[4:0]</obj_property>
       <obj_property name="ObjectShortName">rsD[4:0]</obj_property>
@@ -179,53 +179,5 @@
    <wvobject fp_name="/simulation/top/mips/datapath/StallF" type="logic">
       <obj_property name="ElementShortName">StallF</obj_property>
       <obj_property name="ObjectShortName">StallF</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">
-      <obj_property name="ElementShortName">rsD[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rsD[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rtD" type="array">
-      <obj_property name="ElementShortName">rtD[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rtD[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rdD" type="array">
-      <obj_property name="ElementShortName">rdD[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rdD[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rsE" type="array">
-      <obj_property name="ElementShortName">rsE[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rsE[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rtE" type="array">
-      <obj_property name="ElementShortName">rtE[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rtE[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/rdE" type="array">
-      <obj_property name="ElementShortName">rdE[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rdE[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regwriteE" type="logic">
-      <obj_property name="ElementShortName">regwriteE</obj_property>
-      <obj_property name="ObjectShortName">regwriteE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regwriteM" type="logic">
-      <obj_property name="ElementShortName">regwriteM</obj_property>
-      <obj_property name="ObjectShortName">regwriteM</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regwriteW" type="logic">
-      <obj_property name="ElementShortName">regwriteW</obj_property>
-      <obj_property name="ObjectShortName">regwriteW</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/memtoregE" type="logic">
-      <obj_property name="ElementShortName">memtoregE</obj_property>
-      <obj_property name="ObjectShortName">memtoregE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/memtoregM" type="logic">
-      <obj_property name="ElementShortName">memtoregM</obj_property>
-      <obj_property name="ObjectShortName">memtoregM</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/memtoregW" type="logic">
-      <obj_property name="ElementShortName">memtoregW</obj_property>
-      <obj_property name="ObjectShortName">memtoregW</obj_property>
    </wvobject>
 </wave_config>

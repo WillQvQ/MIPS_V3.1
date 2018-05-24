@@ -26,9 +26,9 @@ module simulation();
     always @(negedge clk) begin
         if (memwrite) begin
             $display("Write %d in %d",writedata,dataadr);
-            if (dataadr === 84 & writedata === 7)begin
+            if (dataadr === 100 & writedata === 7)begin
                 $display("Test-standard2 pass!");
-//                $stop;
+                $stop;
             end
             if (dataadr === 128 & writedata === 7)begin
                  $display("Test-power2 pass!");

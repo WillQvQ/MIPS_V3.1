@@ -18,12 +18,12 @@ module mips#(parameter N = 64)(
     logic [1:0] alusrcE;    
     logic [3:0] alucontrolE;
     logic [1:0] ltype; 
-    logic       branchD,jumpD;       
+    logic       bneD,branchD,jumpD;       
     logic       regdstE, regwriteE,regwriteM,regwriteW; 
     logic [5:0] op, funct;
     logic       FlushE;
 
-    datapath datapath(clk, reset, op, funct, branchD, jumpD,
+    datapath datapath(clk, reset, op, funct, bneD, branchD, jumpD,
                         regwriteE, regwriteM, regwriteW,
                         memtoregE, memtoregM, memtoregW,
                         dtype, ltype, regdstE,
@@ -33,5 +33,5 @@ module mips#(parameter N = 64)(
     controller controller(clk, reset, op, funct, FlushE, dtype,
                         regdstE, regwriteE,regwriteM,regwriteW,
                         memtoregE,memtoregM,memtoregW, memwriteM,
-                        alusrcE, alucontrolE, branchD, jumpD);
+                        alusrcE, alucontrolE, bneD, branchD, jumpD);
 endmodule

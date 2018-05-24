@@ -7,7 +7,7 @@ main:   addi $2,$0,5	#2=5
         add  $5,$5,$4   #5=11
         beq  $5,$7,end  # 11 = 3
         slt  $4,$3,$4   #4=0
-        beq  $4,$0,around # 0 = 0
+        bne  $3,$0,around # 0 = 0
         addi $5,$0,0    
 around: slti  $4,$7,5   #4=1
         add  $7,$4,$5   #7=12

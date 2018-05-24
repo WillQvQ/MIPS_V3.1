@@ -3,7 +3,7 @@
 module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     input   logic       clk, reset,
     output  logic [5:0] op, funct,
-    input   logic       branchD,jumpD,
+    input   logic       bneD,branchD,jumpD,
     input   logic       regwriteE,regwriteM,regwriteW,
     input   logic       memtoregE,memtoregM,memtoregW,
     input   logic       dtype,
@@ -69,7 +69,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     adder   #(W)    branchcalc(pcF,signimm4D,pcbranchD);
     mux2    #(N)    eq1mux(srca1D,aluoutM,ForwardAD,euqalAD);
     mux2    #(N)    eq2mux(srcb1D,aluoutM,ForwardBD,euqalBD);
-    assign equalD = euqalAD==euqalBD;
+    assign equalD = (euqalAD==euqalBD)^bneD;
     assign pcsrcD = {jumpD,branchD & equalD};
     assign FlushD = pcsrcD[0] | pcsrcD[1];
     flopcr#(271)    regD2E(clk,reset,FlushE,//64*264*2+5*3=256+15=271
