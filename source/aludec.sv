@@ -11,7 +11,7 @@ module aludec(
             3'b001: alucontrol <= 4'b0000; // ANDI
             3'b010: alucontrol <= 4'b0001; // ORI
             3'b011: alucontrol <= 4'b0111; // SLTI
-            3'b100: alucontrol <= 4'b1111; // DADDI
+            3'b100: alucontrol <= 4'b1010; // DADDI
             3'b111: case(funct) // RTYPE
                 6'b000000: alucontrol <= 4'b0011; // NOP
                 6'b100000: alucontrol <= 4'b0010; // ADD

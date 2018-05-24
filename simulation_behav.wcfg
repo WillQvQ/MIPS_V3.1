@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="38000fs"></ZoomStartTime>
-      <ZoomEndTime time="125338001fs"></ZoomEndTime>
-      <Cursor1Time time="21538000fs"></Cursor1Time>
+      <ZoomStartTime time="80874500fs"></ZoomStartTime>
+      <ZoomEndTime time="143824501fs"></ZoomEndTime>
+      <Cursor1Time time="123425000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="81"></ValueColumnWidth>
+      <ValueColumnWidth column_width="75"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="43" />
+   <WVObjectSize size="49" />
    <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">
       <obj_property name="ElementShortName">rsD[4:0]</obj_property>
       <obj_property name="ObjectShortName">rsD[4:0]</obj_property>
@@ -108,10 +108,6 @@
       <obj_property name="ElementShortName">instrD[31:0]</obj_property>
       <obj_property name="ObjectShortName">instrD[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/simulation/top/mips/memwriteM" type="array">
-      <obj_property name="ElementShortName">memwriteM[1:0]</obj_property>
-      <obj_property name="ObjectShortName">memwriteM[1:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/simulation/top/mips/datapath/ForwardAE" type="array">
       <obj_property name="ElementShortName">ForwardAE[1:0]</obj_property>
       <obj_property name="ObjectShortName">ForwardAE[1:0]</obj_property>
@@ -188,8 +184,36 @@
       <obj_property name="ElementShortName">readtypeM[2:0]</obj_property>
       <obj_property name="ObjectShortName">readtypeM[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/simulation/top/mips/controller/readtypeD" type="logic">
-      <obj_property name="ElementShortName">readtypeD</obj_property>
-      <obj_property name="ObjectShortName">readtypeD</obj_property>
+   <wvobject fp_name="/simulation/top/mips/controller/readtypeD" type="array">
+      <obj_property name="ElementShortName">readtypeD[2:0]</obj_property>
+      <obj_property name="ObjectShortName">readtypeD[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/memwriteD" type="array">
+      <obj_property name="ElementShortName">memwriteD[1:0]</obj_property>
+      <obj_property name="ObjectShortName">memwriteD[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/memwriteE" type="array">
+      <obj_property name="ElementShortName">memwriteE[1:0]</obj_property>
+      <obj_property name="ObjectShortName">memwriteE[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/memwriteM" type="array">
+      <obj_property name="ElementShortName">memwriteM[1:0]</obj_property>
+      <obj_property name="ObjectShortName">memwriteM[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/alusrcD" type="array">
+      <obj_property name="ElementShortName">alusrcD[1:0]</obj_property>
+      <obj_property name="ObjectShortName">alusrcD[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/maindec/op" type="array">
+      <obj_property name="ElementShortName">op[5:0]</obj_property>
+      <obj_property name="ObjectShortName">op[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/maindec/alusrc" type="array">
+      <obj_property name="ElementShortName">alusrc[1:0]</obj_property>
+      <obj_property name="ObjectShortName">alusrc[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alucontrolE" type="array">
+      <obj_property name="ElementShortName">alucontrolE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">alucontrolE[3:0]</obj_property>
    </wvobject>
 </wave_config>
