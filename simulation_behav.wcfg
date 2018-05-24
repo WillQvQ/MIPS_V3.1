@@ -11,91 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="47193300fs"></ZoomStartTime>
-      <ZoomEndTime time="98343301fs"></ZoomEndTime>
-      <Cursor1Time time="63243000fs"></Cursor1Time>
+      <ZoomStartTime time="203727500fs"></ZoomStartTime>
+      <ZoomEndTime time="265477501fs"></ZoomEndTime>
+      <Cursor1Time time="240028000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="141"></ValueColumnWidth>
+      <ValueColumnWidth column_width="99"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="27" />
-   <wvobject fp_name="/simulation/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/reset" type="logic">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[8]" type="array">
-      <obj_property name="ElementShortName">[8][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[8][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[7]" type="array">
-      <obj_property name="ElementShortName">[7][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[7][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[6]" type="array">
-      <obj_property name="ElementShortName">[6][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[6][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[5]" type="array">
-      <obj_property name="ElementShortName">[5][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[5][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[4]" type="array">
-      <obj_property name="ElementShortName">[4][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[4][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[3]" type="array">
-      <obj_property name="ElementShortName">[3][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[3][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[2]" type="array">
-      <obj_property name="ElementShortName">[2][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[2][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[1]" type="array">
-      <obj_property name="ElementShortName">[1][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[1][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/regfile/rf[0]" type="array">
-      <obj_property name="ElementShortName">[0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">[0][63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/instrF" type="array">
-      <obj_property name="ElementShortName">instrF[31:0]</obj_property>
-      <obj_property name="ObjectShortName">instrF[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/instrD" type="array">
-      <obj_property name="ElementShortName">instrD[31:0]</obj_property>
-      <obj_property name="ObjectShortName">instrD[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/dataadr" type="array">
-      <obj_property name="ElementShortName">dataadr[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dataadr[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mem/memwrite" type="array">
-      <obj_property name="ElementShortName">memwrite[1:0]</obj_property>
-      <obj_property name="ObjectShortName">memwrite[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srca1D" type="array">
-      <obj_property name="ElementShortName">srca1D[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srca1D[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srcb1D" type="array">
-      <obj_property name="ElementShortName">srcb1D[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srcb1D[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srca1E" type="array">
-      <obj_property name="ElementShortName">srca1E[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srca1E[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srcb1E" type="array">
-      <obj_property name="ElementShortName">srcb1E[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srcb1E[63:0]</obj_property>
-   </wvobject>
+   <WVObjectSize size="32" />
    <wvobject fp_name="/simulation/top/mips/datapath/aluoutE" type="array">
       <obj_property name="ElementShortName">aluoutE[63:0]</obj_property>
       <obj_property name="ObjectShortName">aluoutE[63:0]</obj_property>
@@ -112,14 +36,6 @@
       <obj_property name="ElementShortName">resultW[63:0]</obj_property>
       <obj_property name="ObjectShortName">resultW[63:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srcaE" type="array">
-      <obj_property name="ElementShortName">srcaE[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srcaE[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simulation/top/mips/datapath/srcbE" type="array">
-      <obj_property name="ElementShortName">srcbE[63:0]</obj_property>
-      <obj_property name="ObjectShortName">srcbE[63:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/simulation/top/mips/datapath/ForwardAE" type="array">
       <obj_property name="ElementShortName">ForwardAE[1:0]</obj_property>
       <obj_property name="ObjectShortName">ForwardAE[1:0]</obj_property>
@@ -127,5 +43,109 @@
    <wvobject fp_name="/simulation/top/mips/datapath/ForwardBE" type="array">
       <obj_property name="ElementShortName">ForwardBE[1:0]</obj_property>
       <obj_property name="ObjectShortName">ForwardBE[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/memwrite" type="array">
+      <obj_property name="ElementShortName">memwrite[1:0]</obj_property>
+      <obj_property name="ObjectShortName">memwrite[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/dataadr" type="array">
+      <obj_property name="ElementShortName">dataadr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">dataadr[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/writeregM" type="array">
+      <obj_property name="ElementShortName">writeregM[4:0]</obj_property>
+      <obj_property name="ObjectShortName">writeregM[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/regwriteM" type="logic">
+      <obj_property name="ElementShortName">regwriteM</obj_property>
+      <obj_property name="ObjectShortName">regwriteM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/instrF" type="array">
+      <obj_property name="ElementShortName">instrF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instrF[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/instrD" type="array">
+      <obj_property name="ElementShortName">instrD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instrD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">
+      <obj_property name="ElementShortName">rsD[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rsD[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/rtD" type="array">
+      <obj_property name="ElementShortName">rtD[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rtD[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/euqalAD" type="array">
+      <obj_property name="ElementShortName">euqalAD[63:0]</obj_property>
+      <obj_property name="ObjectShortName">euqalAD[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/euqalBD" type="array">
+      <obj_property name="ElementShortName">euqalBD[63:0]</obj_property>
+      <obj_property name="ObjectShortName">euqalBD[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/hazardunit/StallD" type="logic">
+      <obj_property name="ElementShortName">StallD</obj_property>
+      <obj_property name="ObjectShortName">StallD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[12]" type="array">
+      <obj_property name="ElementShortName">[12][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[12][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[11]" type="array">
+      <obj_property name="ElementShortName">[11][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[11][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[10]" type="array">
+      <obj_property name="ElementShortName">[10][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[10][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[9]" type="array">
+      <obj_property name="ElementShortName">[9][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[9][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[8]" type="array">
+      <obj_property name="ElementShortName">[8][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[8][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[7]" type="array">
+      <obj_property name="ElementShortName">[7][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[7][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[6]" type="array">
+      <obj_property name="ElementShortName">[6][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[6][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[5]" type="array">
+      <obj_property name="ElementShortName">[5][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[5][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[4]" type="array">
+      <obj_property name="ElementShortName">[4][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[4][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[3]" type="array">
+      <obj_property name="ElementShortName">[3][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[3][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[2]" type="array">
+      <obj_property name="ElementShortName">[2][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[2][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[1]" type="array">
+      <obj_property name="ElementShortName">[1][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[1][63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM[0]" type="array">
+      <obj_property name="ElementShortName">[0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">[0][63:0]</obj_property>
    </wvobject>
 </wave_config>

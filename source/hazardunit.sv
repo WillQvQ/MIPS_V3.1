@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module hazardunit(
+    input   logic       clk,reset,
     input   logic       branchD, jumpD,
     input   logic [4:0] rsD,rtD,rsE,rtE,
     input   logic [4:0] writeregE,writeregM,writeregW,
@@ -13,8 +14,7 @@ module hazardunit(
     assign ForwardAD = rsD !=0 & (rsD == writeregM) & regwriteM;
     assign ForwardBD = rtD !=0 & (rtD == writeregM) & regwriteM;
     // forwarding sources to E stage (ALU)
-    always_comb
-    begin
+    always_comb begin
         ForwardAE = 2'b00; ForwardBE = 2'b00;
         if (rsE != 0)
             if (rsE == writeregM & regwriteM)
@@ -30,7 +30,7 @@ module hazardunit(
     // stalls
     assign #1 lwStallD = memtoregE & (rtE == rsD | rtE == rtD);
     assign #1 branchStallD = branchD & (regwriteE & (writeregE == rsD | writeregE == rtD) | 
-                                        memtoregM & (writeregM == rsD | writeregM == rtD));
+                                       memtoregM & (writeregM == rsD | writeregM == rtD));
     assign #1 StallD = lwStallD | branchStallD;
     assign #1 StallF = StallD;
     // stalling D stalls all previous stages

@@ -25,7 +25,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [1:0]     ForwardAE,ForwardBE;
     logic [W-1:0]   pcnextF,pcF,pc4F,pc4D,pcbranchD;
     logic [W-1:0]   instrD;
-    logic [5:0]     rsD,rtD,rdD,rsE,rtE,rdE;
+    logic [4:0]     rsD,rtD,rdD,rsE,rtE,rdE;
     logic [N-1:0]   signimmD,zeroimmD,signimmE,zeroimmE;
     logic [N-1:0]   signbyteD,zerobyteD,signbyteE,zerobyteE;
     logic [W-1:0]   signimm4D;
@@ -38,9 +38,10 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [N-1:0]   srca1D,srcb1D,srca1E,srcb1E,srcaE,srcbE;
     logic           zero;
     logic [1:0]     pcsrcD;
-    logic           equal1D,equal2D,equalD;
+    logic [N-1:0]   euqalAD,euqalBD;
+    logic           equalD;
     assign instradr = pcF;
-    hazardunit      hazardunit(branchD,jumpD,rsD,rtD,rsE,rtE,
+    hazardunit      hazardunit(clk,reset,branchD,jumpD,rsD,rtD,rsE,rtE,
                             writeregE,writeregM,writeregW,
                             memtoregE,memtoregM,regwriteE,regwriteM,regwriteW,
                             StallF,StallD,FlushE,
@@ -66,18 +67,18 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     zeroext#(I,N)   zeroext(instrD[15:0],zeroimmD);
     sl2     #(W)    sl2(signimmD[W-1:0],signimm4D);
     adder   #(W)    branchcalc(pcF,signimm4D,pcbranchD);
-    mux2    #(N)    eq1mux(srca1D,aluoutM,ForwardAD,equal1D);
-    mux2    #(N)    eq2mux(srcb1D,aluoutM,ForwardBD,equal2D);
-    assign equalD = equal1D==equal2D;
+    mux2    #(N)    eq1mux(srca1D,aluoutM,ForwardAD,euqalAD);
+    mux2    #(N)    eq2mux(srcb1D,aluoutM,ForwardBD,euqalBD);
+    assign equalD = euqalAD==euqalBD;
     assign pcsrcD = {jumpD,branchD & equalD};
     assign FlushD = pcsrcD[0] | pcsrcD[1];
-    flopcr#(146)    regD2E(clk,reset,FlushE,//64*2+6*3=128+18=146
-                        {srca1D,srcb1D,rsD,rtD,rdD},
-                        {srca1E,srcb1E,rsE,rtE,rdE});
+    flopcr#(271)    regD2E(clk,reset,FlushE,//64*264*2+5*3=256+15=271
+                        {srca1D,srcb1D,signimmD,zeroimmD,rsD,rtD,rdD},
+                        {srca1E,srcb1E,signimmE,zeroimmE,rsE,rtE,rdE});
     //Stage E
     mux3    #(N)    srcamux(srca1E,resultW,aluoutM,ForwardAE,srcaE);
     mux3    #(N)    wdmux(srcb1E,resultW,aluoutM,ForwardBE,writedataE);
-    mux3    #(N)    srcbmux(writedataE,signimmD,zeroimmD,alusrcE,srcbE);
+    mux3    #(N)    srcbmux(writedataE,signimmE,zeroimmE,alusrcE,srcbE);
     mux2    #(5)    regdstmux(rtE, rdE, regdstE, writeregE);
     alu     #(N)    alu(srcaE,srcbE,alucontrolE,aluoutE,zero);
     flopr #(133)    regE2M(clk,reset,//64+64+5=128+5=133

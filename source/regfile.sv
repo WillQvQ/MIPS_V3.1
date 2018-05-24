@@ -10,8 +10,6 @@ module regfile#(parameter N = 32, L = 32)(
     output  logic [N-1:0]   check
 );  
     logic [N-1:0] rf[L-1:0];
-    initial rf[2]=64'b10;
-    initial rf[3]=64'b11;
     always_ff @(negedge clk)
         if (we3) begin
             $display("REG%d=%d",wa3,wd3);

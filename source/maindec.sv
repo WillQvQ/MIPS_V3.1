@@ -31,13 +31,13 @@ module maindec(
             alusrc, branch, jump, aluop} = controls; 
     always_comb
         case (op)
-            RTYPE:  controls <= 12'b101_00_00_00_010;
+            RTYPE:  controls <= 12'b101_00_00_00_111;
             SW:     controls <= 12'b000_01_00_00_000;
             LW:     controls <= 12'b110_00_00_00_000;
-            // ADDI:   controls <= 12'b
-            // ANDI:
-            // ORI:
-            // SLTI:
-            // BEQ:
+            ADDI:   controls <= 12'b100_00_01_00_000;
+            ANDI:   controls <= 12'b100_00_10_00_001;
+            ORI:    controls <= 12'b100_00_10_00_010;
+            SLTI:   controls <= 12'b100_00_10_00_011;
+            BEQ:    controls <= 12'b000_00_00_10_000;
         endcase
 endmodule

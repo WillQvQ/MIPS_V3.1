@@ -39,7 +39,7 @@ module simulation();
             end
         end
         cnt = cnt + 1;
-        if(cnt === 16)begin
+        if(cnt === 48)begin
             $display("Some error occurs!");
             $stop;
         end
