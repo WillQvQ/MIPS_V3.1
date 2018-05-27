@@ -10,7 +10,7 @@ module hazardunit(
     output  logic       ForwardAD,ForwardBD,
     output  logic [1:0] ForwardAE,ForwardBE
 );
-    logic   lwStallD, branchStallD, jumpStallD;
+    logic   lwStallD, branchStallD;
     assign ForwardAD = rsD !=0 & (rsD == writeregM) & regwriteM;
     assign ForwardBD = rtD !=0 & (rtD == writeregM) & regwriteM;
     always_comb begin
@@ -31,5 +31,5 @@ module hazardunit(
                                        memtoregM & (writeregM == rsD | writeregM == rtD));
     assign #1 StallD = lwStallD | branchStallD;
     assign #1 StallF = StallD;
-    assign #1 FlushE = StallD | jumpStallD;
+    assign #1 FlushE = StallD;
 endmodule

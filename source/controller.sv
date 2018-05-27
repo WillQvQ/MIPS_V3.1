@@ -14,7 +14,7 @@ module controller(
 ); 
     logic [2:0] aluopD,readtypeE,readtypeD;
     logic [1:0] memwriteD,memwriteE;
-    logic       memtoregD,memtoregE,memtoregM,memtoregW;
+    logic       memtoregD;
     logic       regwriteD,regdstD;
     logic [1:0] alusrcD;
     logic [3:0] alucontrolD;

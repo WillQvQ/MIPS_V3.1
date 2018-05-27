@@ -9,7 +9,6 @@ module mips#(parameter N = 64)(
     output  logic       dword,
     input   logic[N-1:0]readdata,
     output  logic [7:0] pclow,
-    output  logic [4:0] state,
     input   logic [4:0] checka,
     output  logic [N-1:0]check
 );

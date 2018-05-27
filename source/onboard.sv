@@ -23,7 +23,8 @@ module onboard(
     logic [7:0] checka;
     logic [31:0]check;
     logic [63:0]check64;
-	logic [31:0]showdata;
+    logic [31:0]showdata;
+    logic [31:0]memdata;
 	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
@@ -31,7 +32,7 @@ module onboard(
 	assign writedata = high1low ? writedata64[63:32] : writedata64[31:0];
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
-	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr,check64,addr,memdata);
+	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata);
 	assign data = show ? showdata:{pclow,6'b0,memwrite,addr,check64[7:0]};
 	initial cnt=2'b0;
 	always@(posedge CLK380)  

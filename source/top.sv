@@ -6,7 +6,7 @@ module top#(parameter N = 64)(
     output  logic [1:0]     memwrite,
     output  logic [N-1:0]   readdata,
     output  logic [7:0]     pclow,
-    input   logic [7:0]     checkra,
+    input   logic [4:0]     checkra,
     output  logic [N-1:0]   checkr,
     input   logic [7:0]     checkma,
     output  logic [31:0]    checkm

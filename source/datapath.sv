@@ -20,7 +20,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     input   logic [4:0] checka,
     output  logic[N-1:0]check
 );
-    logic           StallF,StallD,ForwardAD,ForwardBD,FlushD,FlushE;
+    logic           StallF,StallD,ForwardAD,ForwardBD,FlushD;
     logic [1:0]     ForwardAE,ForwardBE;
     logic [W-1:0]   pcnextF,pcF,pc4F,pc4D,pcbranchD;
     logic [W-1:0]   instrD;
