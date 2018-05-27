@@ -1,12 +1,13 @@
 `timescale 1ns / 1ps
 
 module onboard(
-    input   logic 	reset,clken,show,quick,
-    input   logic 	CLK100MHZ,
-    input   logic   [7:0]addr,
-    output  logic 	[6:0]seg,
-    output  logic 	[7:0]an,
-    output  logic 	[7:0]clks
+    input   logic 			reset,clken,quick,show,high1low,
+	input	logic	[1:0]	getone,
+    input   logic 			CLK100MHZ,
+    input   logic   [7:0]	addr,
+    output  logic 	[6:0]	seg,
+    output  logic 	[7:0]	an,
+    output  logic 	[7:0]	clks
 );
 	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
 
@@ -18,53 +19,29 @@ module onboard(
 	logic [2:0]cnt;
 	logic [3:0]digit;   
 	logic [31:0]data;   
-	logic [31:0]datamem;
-	logic [4:0] state;
-	logic [31:0]showdata;
 	logic [7:0] pclow;
-	logic [4:0] stateout;
-    logic [4:0] checka;
+    logic [7:0] checka;
     logic [31:0]check;
     logic [63:0]check64;
-	logic [31:0]memdata;
-    logic [31:0]instradr,instr;
+	logic [31:0]showdata;
 	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
-	assign writedata = writedata64[31:0];
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
-	assign check = check64[31:0];
-	assign checka = addr[4:0];
+	assign check = high1low ? check64[63:32] : check64[31:0];
+	assign writedata = high1low ? writedata64[63:32] : writedata64[31:0];
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
-	top top(clk,reset,writedata64,dataadr64,memwrite,instradr,instr,readdata64,pclow,checka,check64,addr,memdata);
-	assign showdata = show ? memdata:{addr,check[7:0],pclow,3'b0,stateout};
-	assign data = memwrite[0]?datamem:showdata;
+	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr,check64,addr,memdata);
+	assign data = show ? showdata:{pclow,6'b0,memwrite,addr,check64[7:0]};
 	initial cnt=2'b0;
-    initial datamem=32'b0;
-    initial clks=8'b0;
-    initial stateout=5'b0;
-    initial state=5'b0;
-    always@(posedge clk,posedge reset)
-        begin
-            if (reset)
-                begin
-                    clks <= 8'b0;
-                    stateout <= 5'b0;
-                end
-            else
-                begin 
-                    clks <= clks + 1;
-                    stateout <= state;
-                end
-        end
 	always@(posedge CLK380)  
 		begin  
-			if (memwrite) begin
-				datamem[31:28] = 14;
-				datamem[27:24] = 14;
-				datamem[23:16] = dataadr[9:2];
-				datamem[15:0] = writedata[15:0];
-			end
+			case(getone)
+				0:showdata = check;
+				1:showdata = memdata;
+				2:showdata = dataadr;
+				3:showdata = writedata;
+			endcase
 			an=8'b11111111;   
 			an[cnt]=0;  
 			case(cnt)   
