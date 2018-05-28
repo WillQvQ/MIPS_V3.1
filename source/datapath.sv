@@ -18,7 +18,8 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     output  logic       FlushE,
     output  logic [7:0] pclow,
     input   logic [4:0] checka,
-    output  logic[N-1:0]check
+    output  logic[N-1:0]check,
+    output logic  [4:0] writeregW
 );
     logic           StallF,StallD,ForwardAD,ForwardBD,FlushD;
     logic [1:0]     ForwardAE,ForwardBE;
@@ -31,7 +32,7 @@ module datapath #(parameter N = 64, W = 32, I = 16 ,B = 8)(
     logic [B-1:0]   mbyte;
     logic [N-1:0]   mbytezext,mbytesext,mwordzext,mwordsext;
     logic [N-1:0]   writedataE,writedataM;
-    logic [4:0]     writeregE,writeregM,writeregW;
+    logic [4:0]     writeregE,writeregM;
     logic [N-1:0]   readdataM,readdataW;
     logic [N-1:0]   aluoutE,aluoutM,aluoutW;
     logic [N-1:0]   resultW;

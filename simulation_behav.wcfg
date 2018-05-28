@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="80874500fs"></ZoomStartTime>
-      <ZoomEndTime time="143824501fs"></ZoomEndTime>
-      <Cursor1Time time="123425000fs"></Cursor1Time>
+      <ZoomStartTime time="216094900fs"></ZoomStartTime>
+      <ZoomEndTime time="237914901fs"></ZoomEndTime>
+      <Cursor1Time time="227075000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="75"></ValueColumnWidth>
+      <ValueColumnWidth column_width="73"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="49" />
    <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">

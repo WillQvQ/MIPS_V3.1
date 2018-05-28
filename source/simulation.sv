@@ -14,7 +14,9 @@ module simulation();
     logic [63:0]check;
     logic [31:0]memdata;
     logic [31:0]instradr,instr;
-    top top(clk,reset,writedata,dataadr,memwrite,instradr,instr,readdata,pclow,checka,check,addr,memdata);
+    logic [4:0] wreg;
+    logic       we;
+    top top(clk,reset,writedata,dataadr,memwrite,readdata,pclow,checka,check,addr,memdata,we,wreg);
     
     initial begin
         cnt <= 7'b0;
@@ -28,7 +30,7 @@ module simulation();
             $display("Write %d in %d",writedata,dataadr);
             if (dataadr === 100 & writedata === 7)begin
                 $display("Test-standard2 pass!");
-                $stop;
+//                $stop;
             end
             if (dataadr === 128 & writedata === 7)begin
                  $display("Test-power2 pass!");
