@@ -27,7 +27,7 @@ module monboard(
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
     logic       we;
-	mclkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	mclkdiv mclkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
@@ -36,11 +36,16 @@ module monboard(
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
 	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg);
-	assign data = show ? showdata:{pclow,sreg,2'b0,memwrite,addr,check64[7:0]};
+	assign data = show ? showdata:{pclow,sreg[3:0],2'b0,memwrite,addr,check64[7:0]};
 	initial cnt=2'b0;
 	assign tx_buf = showdata[7:0];
 	initial clks = 8'b0;
-	always@(posedge clk) clks <= clks + 1;
+	always@(posedge clk) begin
+	   if(reset)
+	       clks <= 0;
+	   else
+	       clks <= clks + 1;
+	end
 	always@(posedge CLK380)  
 		begin  
 			case(getone)

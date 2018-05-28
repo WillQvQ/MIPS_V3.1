@@ -38,7 +38,7 @@ module onboard(
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
 	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg);
-	assign data = show ? showdata:{pclow,sreg,2'b0,memwrite,addr,check64[7:0]};
+	assign data = show ? showdata:{pclow,sreg[3:0],2'b0,memwrite,addr,check64[7:0]};
 	initial cnt=2'b0;
 	assign tx_buf = showdata[7:0];
     initial clks = 8'b0;
@@ -86,10 +86,10 @@ module onboard(
 		end  
 		
     uarttx u2 (
-                .clk                     (CLK100MHZ),                  //16±¶²¨ÌØÂÊµÄÊ±ÖÓ  
-               .tx                      (tx),                      //´®¿Ú·¢ËÍ
-                .datain                  (tx_buf),               //uart ·¢ËÍµÄÊý¾Ý   
-              .wrsig                   (1'b1),                //uart ·¢ËÍµÄÊý¾ÝÓÐÐ§  
+                .clk                     (CLK100MHZ),                  //16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê±ï¿½ï¿½  
+               .tx                      (tx),                      //ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½
+                .datain                  (tx_buf),               //uart ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½   
+              .wrsig                   (1'b1),                //uart ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§  
               .idle                    () ,    
                 .rst_n(reset)
          );
