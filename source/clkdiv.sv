@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module clkdiv(
+module mclkdiv(
     input   logic mclk,
     output  logic clk380,
     output  logic clk48,

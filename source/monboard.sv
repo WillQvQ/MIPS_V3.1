@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module onboard(
+module monboard(
     input   logic 			reset,clken,quick,show,high1low,
 	input	logic	[1:0]	getone,
     input   logic 			CLK100MHZ,
@@ -10,8 +10,6 @@ module onboard(
     output  logic 	[7:0]	clks
 );
 	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
-	
-	logic [7:0] tx_buf;
 
 	logic [63:0]writedata64, dataadr64;
 	logic [31:0]writedata, dataadr;
@@ -29,7 +27,7 @@ module onboard(
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
     logic       we;
-	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	mclkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
@@ -41,8 +39,8 @@ module onboard(
 	assign data = show ? showdata:{pclow,sreg,2'b0,memwrite,addr,check64[7:0]};
 	initial cnt=2'b0;
 	assign tx_buf = showdata[7:0];
-    initial clks = 8'b0;
-    always@(posedge clk) clks <= clks + 1;
+	initial clks = 8'b0;
+	always@(posedge clk) clks <= clks + 1;
 	always@(posedge CLK380)  
 		begin  
 			case(getone)
@@ -84,14 +82,5 @@ module onboard(
 			endcase 
 			cnt <=cnt+1'b1; 
 		end  
-		
-    uarttx u2 (
-                .clk                     (CLK100MHZ),                  //16倍波特率的时钟  
-               .tx                      (tx),                      //串口发送
-                .datain                  (tx_buf),               //uart 发送的数据   
-              .wrsig                   (1'b1),                //uart 发送的数据有效  
-              .idle                    () ,    
-                .rst_n(reset)
-         );
 
 endmodule  
