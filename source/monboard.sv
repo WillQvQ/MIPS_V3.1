@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module monboard(
-    input   logic 			reset,clken,quick,show,high1low,
+    input   logic 			reset,clken,quick,show,high1low,clkon,
 	input	logic	[1:0]	getone,
     input   logic 			CLK100MHZ,
     input   logic   [7:0]	addr,
@@ -26,6 +26,7 @@ module monboard(
     logic [31:0]showdata;
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
+	logic [7:0] clkshow;
     logic       we;
 	mclkdiv mclkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
@@ -36,7 +37,8 @@ module monboard(
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
 	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg);
-	assign data = show ? showdata:{pclow,sreg[3:0],2'b0,memwrite,addr,check64[7:0]};
+	assign clkshow = clkon ? clks:{sreg[3:0],2'b0,memwrite};
+	assign data = show ? showdata:{pclow,clkshow,addr,check64[7:0]};
 	initial cnt=2'b0;
 	assign tx_buf = showdata[7:0];
 	initial clks = 8'b0;

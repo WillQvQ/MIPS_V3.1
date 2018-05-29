@@ -30,22 +30,22 @@ module simulation();
             $display("Write %d in %d",writedata,dataadr);
             if (dataadr === 100 & writedata === 7)begin
                 $display("Test-standard2 pass!");
-//                $stop;
+                #100 $stop;
             end
-            if (dataadr === 128 & writedata === 7)begin
+            if (dataadr === 508 & writedata === 7)begin
                  $display("Test-power2 pass!");
-                 $stop;
+                 #100 $stop;
             end            
             if (dataadr === 80 & writedata === 1)begin
                  $display("Test-loadstore pass!");
-                 $stop;
+                 #100 $stop;
             end
         end
         cnt = cnt + 1;
-        if(cnt === 48)begin
-            $display("Some error occurs!");
-            $stop;
-        end
+//        if(cnt === 48)begin
+//            $display("Some error occurs!");
+//            $stop;
+//        end
     end
 
 endmodule  
