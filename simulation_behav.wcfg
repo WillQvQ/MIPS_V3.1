@@ -11,15 +11,19 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4384600000fs"></ZoomStartTime>
-      <ZoomEndTime time="4638315544fs"></ZoomEndTime>
-      <Cursor1Time time="227075000fs"></Cursor1Time>
+      <ZoomStartTime time="11924812062fs"></ZoomStartTime>
+      <ZoomEndTime time="12183195691fs"></ZoomEndTime>
+      <Cursor1Time time="11967876000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="71"></ValueColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="63" />
+   <WVObjectSize size="66" />
+   <wvobject fp_name="/simulation/cnt" type="array">
+      <obj_property name="ElementShortName">cnt[9:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt[9:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/simulation/top/mips/datapath/rsD" type="array">
       <obj_property name="ElementShortName">rsD[4:0]</obj_property>
       <obj_property name="ObjectShortName">rsD[4:0]</obj_property>
@@ -259,7 +263,6 @@
    <wvobject fp_name="/simulation/top/mem/RAM" type="array">
       <obj_property name="ElementShortName">RAM[127:0][63:0]</obj_property>
       <obj_property name="ObjectShortName">RAM[127:0][63:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/simulation/top/mem/word" type="array">
       <obj_property name="ElementShortName">word[31:0]</obj_property>
@@ -272,5 +275,13 @@
    <wvobject fp_name="/simulation/top/mem/L" type="array">
       <obj_property name="ElementShortName">L[31:0]</obj_property>
       <obj_property name="ObjectShortName">L[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/writedata" type="array">
+      <obj_property name="ElementShortName">writedata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">writedata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/dataadr" type="array">
+      <obj_property name="ElementShortName">dataadr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">dataadr[63:0]</obj_property>
    </wvobject>
 </wave_config>

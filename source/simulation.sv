@@ -7,7 +7,7 @@ module simulation();
     logic [1:0] memwrite;
     logic [63:0]datapc;
     logic [63:0]readdata;
-    logic [9:0] cnt;
+    logic [31:0] cnt;
     logic [7:0] pclow;
     logic [7:0] addr;
     logic [4:0] checka;
@@ -40,12 +40,16 @@ module simulation();
                  $display("Test-loadstore pass!");
                  #100 $stop;
             end
+            if (dataadr === 64 & writedata === 4950)begin
+                $display("Test-more ends!");
+                #100 $stop;
+            end
         end
         cnt = cnt + 1;
-//        if(cnt === 48)begin
-//            $display("Some error occurs!");
-//            $stop;
-//        end
+        if(cnt === 1300)begin
+            $display("Some error occurs!");
+            $stop;
+        end
     end
 
 endmodule  
