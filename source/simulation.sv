@@ -40,13 +40,14 @@ module simulation();
                  $display("Test-loadstore pass!");
                  #100 $stop;
             end
-            if (dataadr === 64 & writedata === 4950)begin
+            if (dataadr === 320 & writedata === 4950)begin
                 $display("Test-more ends!");
+                $display(cnt);
                 #100 $stop;
             end
         end
         cnt = cnt + 1;
-        if(cnt === 1300)begin
+        if(cnt === 580)begin
             $display("Some error occurs!");
             $stop;
         end

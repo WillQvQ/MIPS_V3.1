@@ -1,13 +1,15 @@
 `timescale 1ns / 1ps
 
 module onboard(
-    input   logic 			reset,clken,quick,show,high1low,
+    input   logic 			reset,clken,quick,show,high1low,clkon,
 	input	logic	[1:0]	getone,
     input   logic 			CLK100MHZ,
     input   logic   [7:0]	addr,
     output  logic 	[6:0]	seg,
     output  logic 	[7:0]	an,
-    output  logic 	[7:0]	clks
+    output  logic 	[7:0]	clks,
+    input   logic           rs232_rx,
+    output  logic           rs232_tx
 );
 	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
 	
@@ -28,8 +30,9 @@ module onboard(
     logic [31:0]showdata;
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
+	logic [7:0] clkshow;
     logic       we;
-	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	mclkdiv mclkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
@@ -38,9 +41,10 @@ module onboard(
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
 	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg);
-	assign data = show ? showdata:{pclow,sreg[3:0],2'b0,memwrite,addr,check64[7:0]};
+	assign clkshow = clkon ? clks:{sreg[3:0],2'b0,memwrite};
+	assign data = show ? showdata:{pclow,clkshow,addr,check64[7:0]};
 	initial cnt=2'b0;
-	assign tx_buf = showdata[7:0];
+	assign tx_buf = pclow;
     initial clks = 8'b0;
     always@(posedge clk) clks <= clks + 1;
 	always@(posedge CLK380)  
@@ -84,14 +88,8 @@ module onboard(
 			endcase 
 			cnt <=cnt+1'b1; 
 		end  
-		
-    uarttx u2 (
-                .clk                     (CLK100MHZ),                  //16�������ʵ�ʱ��  
-               .tx                      (tx),                      //���ڷ���
-                .datain                  (tx_buf),               //uart ���͵�����   
-              .wrsig                   (1'b1),                //uart ���͵�������Ч  
-              .idle                    () ,    
-                .rst_n(reset)
-         );
-
+	wire rst_n;
+	assign rst_n = ~reset;	
+	
+	uart_top(CLK100MHZ,rst_n,rs232_rx,rs232_tx);
 endmodule  

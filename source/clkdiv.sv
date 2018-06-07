@@ -8,6 +8,7 @@ module mclkdiv(
     output  logic clk0_4
 );
     logic [27:0]q;
+    initial q = 28'b0;
     always@(posedge mclk)
          q<=q+1;
     assign clk380=q[17];
