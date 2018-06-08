@@ -28,7 +28,7 @@ module monboard(
 	logic [4:0] wreg,sreg;
 	logic [7:0] clkshow;
     logic       we;
-	mclkdiv mclkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];

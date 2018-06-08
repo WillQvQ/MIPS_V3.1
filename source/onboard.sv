@@ -8,8 +8,8 @@ module onboard(
     output  logic 	[6:0]	seg,
     output  logic 	[7:0]	an,
     output  logic 	[7:0]	clks,
-    input   logic           rs232_rx,
-    output  logic           rs232_tx
+    input   logic           rx_pin_in,
+    output  logic           tx_pin_out
 );
 	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
 	
@@ -32,7 +32,7 @@ module onboard(
 	logic [4:0] wreg,sreg;
 	logic [7:0] clkshow;
     logic       we;
-	mclkdiv mclkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
 	assign sreg = we ? wreg:4'b0;
 	assign readdata = readdata64[31:0];
 	assign dataadr = dataadr64[31:0];
@@ -91,5 +91,4 @@ module onboard(
 	wire rst_n;
 	assign rst_n = ~reset;	
 	
-	uart_top(CLK100MHZ,rst_n,rs232_rx,rs232_tx);
 endmodule  
