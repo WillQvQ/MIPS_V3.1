@@ -11,11 +11,13 @@ module top#(parameter N = 64)(
     input   logic [7:0]     checkma,
     output  logic [31:0]    checkm,
     output  logic           regwriteW,
-    output  logic [4:0]     writeregW
+    output  logic [4:0]     writeregW,
+    input   logic [7:0]     rx_data,
+    output  logic [63:0]    mdata
 );
     logic dword;
     logic [31:0] instradr,instr;
     mips mips(clk,reset,dataadr,writedata,memwrite,instradr,instr,dword,readdata,pclow,checkra,checkr,regwriteW,writeregW);
-    mem mem(clk,dword,memwrite,dataadr,writedata,instradr,instr,readdata,checkma,checkm);
+    mem mem(clk,dword,memwrite,dataadr,writedata,instradr,instr,readdata,checkma,checkm,rx_data,mdata);
 
 endmodule

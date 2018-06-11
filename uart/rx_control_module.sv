@@ -8,9 +8,7 @@ module rx_control_module(
 );
 
 logic [3:0]i;
-logic [7:0] rx_data;
 logic count_sig;
-logic rx_done_sig;
 logic bps_clk;
 
 always@(posedge clk,negedge rst_n)

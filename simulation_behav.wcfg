@@ -11,25 +11,57 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="190000003fs"></ZoomEndTime>
-      <Cursor1Time time="12000000000fs"></Cursor1Time>
+      <ZoomStartTime time="119925600000fs"></ZoomStartTime>
+      <ZoomEndTime time="120000400001fs"></ZoomEndTime>
+      <Cursor1Time time="119950800000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="132"></NameColumnWidth>
+      <NameColumnWidth column_width="120"></NameColumnWidth>
       <ValueColumnWidth column_width="54"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
-   <wvobject fp_name="/simu_uart/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/simu_uart/uart_top/clk_out" type="logic">
-      <obj_property name="ElementShortName">clk_out</obj_property>
-      <obj_property name="ObjectShortName">clk_out</obj_property>
-   </wvobject>
+   <WVObjectSize size="11" />
    <wvobject fp_name="/simu_uart/reset" type="logic">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/tx_sig" type="logic">
+      <obj_property name="ElementShortName">tx_sig</obj_property>
+      <obj_property name="ObjectShortName">tx_sig</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/clk_trx" type="logic">
+      <obj_property name="ElementShortName">clk_trx</obj_property>
+      <obj_property name="ObjectShortName">clk_trx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/clk_mips" type="logic">
+      <obj_property name="ElementShortName">clk_mips</obj_property>
+      <obj_property name="ObjectShortName">clk_mips</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/tx_pin_out" type="logic">
+      <obj_property name="ElementShortName">tx_pin_out</obj_property>
+      <obj_property name="ObjectShortName">tx_pin_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/tx_sig" type="logic">
+      <obj_property name="ElementShortName">tx_sig</obj_property>
+      <obj_property name="ObjectShortName">tx_sig</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/i" type="array">
+      <obj_property name="ElementShortName">i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">i[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/bps_clk" type="logic">
+      <obj_property name="ElementShortName">bps_clk</obj_property>
+      <obj_property name="ObjectShortName">bps_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/count_sig" type="logic">
+      <obj_property name="ElementShortName">count_sig</obj_property>
+      <obj_property name="ObjectShortName">count_sig</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simu_uart/uart_top/u4/bps_module/count_bps" type="array">
+      <obj_property name="ElementShortName">count_bps[12:0]</obj_property>
+      <obj_property name="ObjectShortName">count_bps[12:0]</obj_property>
    </wvobject>
 </wave_config>
