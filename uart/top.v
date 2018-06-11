@@ -1,24 +1,20 @@
 `timescale 1ns / 1ps
 
 module uart_top(
-	clk,rst_n,tx_pin_out,rx_pin_in  
+	CLK100MHZ,rst_n,tx_pin_out,rx_pin_in  
 );
 
 
-input clk;
+input CLK100MHZ;
 input rst_n;
 input rx_pin_in;
 output tx_pin_out;
 
-
+reg cnt;
+initial cnt = 1'b0;
+always@(posedge CLK100MHZ)cnt <= cnt +1;
 wire clk_out;
-
-
-  div_clk u1
-   (// Clock in ports
-    .CLK_IN1(clk),      // IN
-    // Clock out ports
-    .CLK_OUT1(clk_out));
+assign clk_out = cnt;
 
 wire h2l_sig;
 test_module u2 (

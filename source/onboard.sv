@@ -88,7 +88,8 @@ module onboard(
 			endcase 
 			cnt <=cnt+1'b1; 
 		end  
-	wire rst_n;
+	logic rst_n;
 	assign rst_n = ~reset;	
 	
+	uart_top uart_top(CLK100MHZ,rst_n,tx_pin_out,rx_pin_in);
 endmodule  
