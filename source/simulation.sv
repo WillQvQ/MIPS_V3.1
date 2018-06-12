@@ -3,6 +3,7 @@
 module simulation();
     logic clk;
     logic reset;
+    
     logic [63:0]writedata, dataadr;
     logic [1:0] memwrite;
     logic [63:0]datapc;

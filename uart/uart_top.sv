@@ -8,11 +8,11 @@ module uart_top(
     input   logic   rx_pin_in,
     input   logic   [63:0]  data,
     output  logic   [7:0]   rx_data,
-    input   logic   [63:0]  mdata
+    input   logic   [32:0]  rx_check
 );
 logic       rx_done_sig;
-logic [7:0] rx_data;
 logic [63:0]tx_data;
+logic [3:0] len;
 logic       cnt,clk_trx;
 logic       h2l_sig;
 logic       tx_sig;
@@ -58,17 +58,21 @@ always@(negedge clk_trx,negedge rst_n)begin
 end
 assign tx_sig = (f2 & !f1) | rx_done_sig;
 always @(posedge tx_sig)
-    if(rx_done_sig)
-        tx_data = mdata;
-    else
+    if(rx_done_sig)begin
+        tx_data = rx_check;
+        len = 4'b100;
+    end
+    else begin
         tx_data = data;
+        len = 4'b1000;
+    end
 tx_control_module u4 (
     .clk(clk_trx), 
     .rst_n(rst_n), 
     .tx_sig(tx_sig), 
     .tx_data(tx_data), 
     .tx_pin_out(tx_pin_out),
-    .len(4'b1000)
+    .len(len)
     );
 
 endmodule

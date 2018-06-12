@@ -11,8 +11,7 @@ module mem#(parameter N = 64, L = 128)(
     input   logic [7:0]     checka,
     output  logic [31:0]    check,
     input   logic [7:0]     rx_data,
-    output  logic [63:0]    mdata
-
+    output  logic [31:0]    rx_check
 );
     logic [N-1:0] RAM [L-1:0];
     logic [31:0]  word;
@@ -22,7 +21,7 @@ module mem#(parameter N = 64, L = 128)(
     assign readdata = dword ? RAM[dataadr[N-1:3]] : {32'b0,word};
     assign check = checka[0] ? RAM[checka[7:1]][31:0] : RAM[checka[7:1]][63:32];
     assign word = dataadr[2] ? RAM[dataadr[N-1:3]][31:0] : RAM[dataadr[N-1:3]][63:32];
-    assign mdata = RAM[rx_data];
+    assign rx_check = rx_data[0] ? RAM[rx_data[7:1]][31:0] : RAM[rx_data[7:1]][63:32];
     always @(posedge clk)
         begin
         if (memwrite==3)//D
