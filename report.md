@@ -112,7 +112,7 @@ top模块下是处理器mips和内存mem。mips中又分为数据通路datapath�
 
 ![流水线图](/images/流水线图.png)
 
-我的数据通路设计如上图所示，更清晰的图可以见<a herf="/Reference/流水线图.pdf">/Reference/流水线图.pdf</a>。
+我的数据通路设计如上图所示，更清晰的图可以见<a href="/Reference/流水线图.pdf">/Reference/流水线图.pdf</a>。
 
 流水线MIPS的核心就是把每条指令的执行过程切分成Fetch、Decode、Execute、Memory和WriteBack五个阶段。当五个阶段的硬件独立时，我们就可以同时执行五条指令的不同阶段，从而提高整个处理器的运行效率。
 
@@ -459,4 +459,4 @@ assign #1 StallD = lwStallD | branchStallD;
 
 1. <a href="/Reference/MIPS64-Vol1.pdf">MIPS64-Vol1.pdf</a>
 2. <a href="/Reference/MIPS64-Vol2.pdf">MIPS64-Vol2.pdf</a>
-3. <a herf="/Reference/流水线图.pdf">流水线图.pdf</a>：原图是课本的作者在另一本书上的配图
+3. <a href="/Reference/流水线图.pdf">流水线图.pdf</a>：原图是课本的作者在另一本书上的配图
