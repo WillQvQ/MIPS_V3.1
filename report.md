@@ -8,9 +8,9 @@
 
 本次实验我实现了64位MIPS流水线CPU，支持三种冒险的完整解决方法，支持包括5种64位指令在内的24条指令。但目前的指令都是可以在FDEMW五个周期内完成的指令，在下一版本的CPU种，我会实现支持不同时钟周期结束的指令。
 
-我花了很多时间研究并实现了硬件上串口调试的功能（助教给的代码不知道为什么运行不了）， 支持通过串口在电脑上显示数据情况的功能。
+因为我在5月28日第一个给老师检查了流水线，老师让助教给我配置串口调试的代码，但忙了两节课没有成功。我回去后花了很多时间研究并实现了硬件上串口调试的功能（助教给的代码不知道为什么运行不了），终于在第二周实现了通过串口在电脑上显示数据情况的功能。
 
-我还花时间调研了不同解决冒险方法对CPI的影响，分析出重定向是能节约最多时间的方法。
+我还花很多时间调研了不同解决冒险方法对CPI的影响，分析出重定向是能节约最多时间的方法。这一部分的分析，详见<七、冒险解决策略研究>
 
 ### 二、支持指令
 
@@ -23,13 +23,12 @@
 
 ### 三、项目文件
 
-根目录（/）
+**根目录（/）**
 
 ```
 /test/                  存放各种版本的汇编文件(.s)、十六进制文件(.dat)
 /images/                存放实验报告所需的图片(.png)
 /source/                源代码(.sv)
-/uart/                  参考网上资料的串口功能代码(.v)
 /Reference/             MIPS64官方文档等参考资料
 .gitignore              git配置文件
 memfile.dat             当前使用的十六进制文件（每行两条指令）
@@ -39,52 +38,72 @@ Nexys4DDR_Master.xdc    Nexys4实验板引脚锁定文件
 simulation_behav.wcfg   仿真波形图配置文件
 ```
 
-源代码（/source/）
+**源代码（/source/）**
+
+因为整个程序变得更加复杂了，我重构了源代码目录的结构。现在我在source文件夹的根目录下保留了较顶层的几个模块代码，而把其他文件放到了不同功能模块的文件夹中
+
+```
+onboard.sv              在Nexys4实验板上测试的顶层模块（含串口调试）
+monboard.sv             在Nexys4实验板上测试的顶层模块（不含串口调试）
+simulation.sv           仿真时使用的顶层模块
+top.sv                  包含mips和内存的顶层模块
+mips.sv                 mips处理器的顶层模块
+mem.sv                  指令和数据的混合存储器（模拟真实内存情况）
+```
+
+**可复用模块（/source/utils/）**
 
 ```
 adder.sv                加法器单元
-alu.sv                  ALU计算单元
-aludec.sv               ALU控制单元，用于输出alucontrol信号
 clkdiv.sv               时钟分频模块模块，用于演示
-controller.sv           mips的控制单元，包含maindec和aludec两部分
-datapath.sv             数据通路，mips的核心结构
 flopenr.sv              时钟控制的可复位的触发寄存器
 flopr.sv                可复位的触发寄存器
 flopencr.sv             时钟控制的可复位、可清零的触发寄存器
 flopcr.sv               可复位、可清零的触发寄存器
-hazardunit.sv           冒险处理单元
-maindec.sv              主控单元
-mem.sv                  指令和数据的混合存储器
-mips.sv                 mips处理器的顶层模块
-monboard.sv             在Nexys4实验板上测试的顶层模块（不含串口调试）
 mux2.sv                 2:1复用器
 mux3.sv                 3:1复用器
 mux4.sv                 4:1复用器
 mux5.sv                 5:1复用器
-onboard.sv              在Nexys4实验板上测试的顶层模块（含串口调试）
-regfile.sv              寄存器文件
-signext.sv              符号拓展模块
-simulation.sv           仿真时使用的顶层模块
 sl2.sv                  左移2位
-top.sv                  包含mips和内存的顶层模块
+signext.sv              符号拓展模块
 zeroext.sv              零拓展模块
 ```
 
-串口调试（/uart/）
+**MIPS控制单元（/source/controller/）**
 
 ```
-top.v                   串口调试顶层模块
-bps_module.v            控制发射速率的模块
-rx_control_module.v     rx控制模块
-tx_control_module.v     tx控制模块
-test_module.v           下降沿检测模块
+controller.sv           mips的控制单元，包含maindec和aludec两部分
+aludec.sv               ALU控制单元，用于输出alucontrol信号
+maindec.sv              主控单元
+```
+
+**MIPS数据通路（/source/datapath/）**
+
+```
+datapath.sv             数据通路，mips的核心结构
+alu.sv                  ALU计算单元
+hazardunit.sv           冒险处理单元
+regfile.sv              寄存器文件
+```
+
+**串口调试模块（/source/uart/）**
+
+```
+simu_uart.sv             用于仿真测试串口调试功能
+uart_top.sv              串口调试顶层模块
+bps_module.sv            控制发射速率的模块
+rx_control_module.sv     rx控制模块
+tx_control_module.sv     tx控制模块
+test_module.sv           下降沿检测模块
 ```
 
 ### 四、数据通路设计
 
 ![流水线图](/images/流水线图.png)
 
-我的数据通路设计如上图所示，更清晰的图可以见/Reference/流水线图.pdf
+我的数据通路设计如上图所示，更清晰的图可以见<a herf="/Reference/流水线图.pdf">/Reference/流水线图.pdf<a/>
+
+流水线MIPS处理器的
 
 
 
@@ -247,11 +266,7 @@ assign #1 StallD = lwStallD | branchStallD;
 
 
 
-### 十一、实验总结
-
-
-
-### 十二、参考文献
+### 十一、参考文献
 
 
 
