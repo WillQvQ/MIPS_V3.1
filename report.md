@@ -124,7 +124,7 @@ top模块下是处理器mips和内存mem。mips中又分为数据通路datapath�
 
 触发寄存器名=”reg“ +前面的阶段+”2“+后面的阶段。例如regF2D、regD2E等。
 
-下面我逐一分析我各个阶段的器件结构，冒险处理单元的介绍见<七、冒险处理单元设计>。
+下面我分析各个阶段的器件结构，代码中”...“表示省略了部分代码，完整代码见datapath.sv。冒险处理单元的介绍见<七、冒险处理单元设计>。
 
 **Fetch阶段**
 
@@ -134,9 +134,7 @@ Fetch阶段主要是用触发寄存器确定读取指令的时机，同时用三
 flopenr #(W)    pcreg(clk, reset, ~StallF, pcnextF, pcF);
 adder   #(W)    pcplus4(pcF,32'b100,pc4F);
 mux3    #(W)    pcmux(pc4F,pcbranchD,{pc4D[31:28],instrD[25:0],2'b00},pcsrcD,pcnextF);
-flopencr#(64)   regF2D(clk,reset,~StallD,FlushD,//32+32=64
-                        {instrF,pc4F},
-                        {instrD,pc4D});
+flopencr#(64)   regF2D(clk,reset,~StallD,FlushD,...);
 ```
 
 **Decode阶段**
@@ -165,9 +163,7 @@ assign equalD = (euqalAD==euqalBD)^bneD;
 assign pcsrcD = {jumpD,branchD & equalD};
 assign FlushD = pcsrcD[0] | pcsrcD[1];
 //
-flopcr#(271)    regD2E(clk,reset,FlushE,//64*2+64*2+5*3=256+15=271
-                    {srca1D,srcb1D,signimmD,zeroimmD,rsD,rtD,rdD},
-                    {srca1E,srcb1E,signimmE,zeroimmE,rsE,rtE,rdE});
+flopcr#(271)    regD2E(clk,reset,FlushE,...);
 ```
 
 **Execute阶段**
@@ -180,9 +176,7 @@ mux3    #(N)    wdmux(srcb1E,resultW,aluoutM,ForwardBE,writedataE);
 mux3    #(N)    srcbmux(writedataE,signimmE,zeroimmE,alusrcE,srcbE);
 mux2    #(5)    regdstmux(rtE, rdE, regdstE, writeregE);
 alu     #(N)    alu(srcaE,srcbE,alucontrolE,aluoutE,zero);
-flopr #(133)    regE2M(clk,reset,//64+64+5=128+5=133
-                    {aluoutE,writedataE,writeregE},
-                    {aluoutM,writedataM,writeregM});
+flopr #(133)    regE2M(clk,reset,...});
                         
 ```
 
@@ -203,24 +197,20 @@ zeroext #(W,N)  lwze(readdata[31:0], mwordzext);
 signext #(W,N)  lwse(readdata[31:0], mwordsext);
 mux5    #(N)    datamux(mwordsext,mwordzext,mbytesext,mbytezext,readdata,readtypeM,readdataM);
 //
-flopr #(133)    regM2W(clk,reset,//64+64+5=133
-                      {readdataM,aluoutM,writeregM},
-                      {readdataW,aluoutW,writeregW});
+flopr #(133)    regM2W(clk,reset,...);
 ```
 
 **Write Back阶段**
 
-Write Back阶段只需要用选择器选择一下要写回的数据即可。
+Write Back阶段只需要用复用器选择一下要写回的数据即可。
 
 ```verilog
 mux2    #(N)    resultmux(aluoutW,readdataW,memtoregW,resultW);
 ```
 
-
-
 ### 六、控制单元设计
 
-控制单元和数据路径一样需要进行阶段上的传递
+控制单元和数据路径一样需要进行不同阶段上的传递，maindec和aludec都在Decode阶段生成对应的控制信号，由三个触发寄存器将各个信号进行传递。
 
 ```verilog
 //controller.sv
@@ -234,7 +224,20 @@ flopr #(7)      regE2M(clk,reset,...);
 flopr #(2)      regM2W(clk,reset,...);
 ```
 
+最终我们需要输出的只是其中的一部分信号
 
+```verilog
+//controller.sv
+output  logic       regdstE, regwriteE,regwriteM,regwriteW, 
+output  logic       memtoregE,memtoregM,memtoregW,
+output  logic [1:0] memwriteM,
+output  logic [1:0] alusrcE,
+output  logic [3:0] alucontrolE,
+output  logic       bneD,branchD,jumpD,
+output  logic [2:0] readtypeM
+```
+
+具体控制信号方面，aludec的设计和上次实验相同，maindec中controls只需要16位即可。主要包含内存和寄存器读写控制、alu操作控制和分支跳转控制。
 
 ```verilog
 //maindec.sv
@@ -262,11 +265,9 @@ assign {regwrite,memtoreg,regdst, memwrite, alusrc,
          endcase
 ```
 
-
-
 ### 七、冒险处理单元设计
 
-冒险处理单元的核心代码在书上基本上都给出了。其中重定向包含了两个部分：一个是ALU运算数选择上的重定向、一个是分支预测读取寄存器值的重定向。而刷新流水线主要用于解决lw后读冒险和分支预测冒险。
+冒险处理单元的核心代码在书上基本上都给出了。其中重定向包含了两个部分：一个是ALU运算数选择上的重定向、一个是分支预测读取寄存器值的重定向。而刷新流水线主要用于解决lw后读冒险和分支预测冒险。处理单元生成的StallF,StallD,FlushE信号控制了流水线是否"流动"，而ForwardAD,ForwardBD,ForwardAE,ForwardBE信号则为是否重定向寄存器以及重定向到哪个寄存器提供了控制。
 
 冒险处理单元的完整代码如下：
 
