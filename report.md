@@ -1,7 +1,5 @@
 ## MIPS_V3.1——64位流水线处理器
 
-xm_131311
-
 [TOC]
 
 ### 一、项目概述
@@ -176,8 +174,7 @@ mux3    #(N)    wdmux(srcb1E,resultW,aluoutM,ForwardBE,writedataE);
 mux3    #(N)    srcbmux(writedataE,signimmE,zeroimmE,alusrcE,srcbE);
 mux2    #(5)    regdstmux(rtE, rdE, regdstE, writeregE);
 alu     #(N)    alu(srcaE,srcbE,alucontrolE,aluoutE,zero);
-flopr #(133)    regE2M(clk,reset,...});
-                        
+flopr #(133)    regE2M(clk,reset,...});        
 ```
 
 **Memory阶段**
@@ -213,7 +210,6 @@ mux2    #(N)    resultmux(aluoutW,readdataW,memtoregW,resultW);
 控制单元和数据路径一样需要进行不同阶段上的传递，maindec和aludec都在Decode阶段生成对应的控制信号，由三个触发寄存器将各个信号进行传递。
 
 ```verilog
-//controller.sv
 maindec maindec(clk, reset, op,
                     regwriteD,memtoregD, regdstD, memwriteD,
                     alusrcD, bneD, branchD, jumpD,
@@ -227,7 +223,6 @@ flopr #(2)      regM2W(clk,reset,...);
 最终我们需要输出的只是其中的一部分信号
 
 ```verilog
-//controller.sv
 output  logic       regdstE, regwriteE,regwriteM,regwriteW, 
 output  logic       memtoregE,memtoregM,memtoregW,
 output  logic [1:0] memwriteM,
@@ -240,7 +235,6 @@ output  logic [2:0] readtypeM
 具体控制信号方面，aludec的设计和上次实验相同，maindec中controls只需要16位即可。主要包含内存和寄存器读写控制、alu操作控制和分支跳转控制。
 
 ```verilog
-//maindec.sv
 assign {regwrite,memtoreg,regdst, memwrite, alusrc,
             bne,branch,jump, aluop, readtype} = controls; 
     always_comb
@@ -369,6 +363,8 @@ assign #1 StallD = lwStallD | branchStallD;
 
 寄存器的重定向可以化解大部分的冒险，使CPI明显的下降，但无法解决lw后读冒险和分支冒险；而使用刷新流水线的方法来解决分支冒险和lw后读冒险，可以节省下编译器插入NOP的时间，但无法加快处理器运算速度、降低CPI。
 
+<div STYLE="page-break-after: always;"></div>
+
 ### 九、测试与演示设计
 
 **仿真测试**
@@ -410,6 +406,8 @@ assign #1 StallD = lwStallD | branchStallD;
   5.3 SW4上 查看高位的值
 6. SW2上四倍速快速运行
 
+<div STYLE="page-break-after: always;"></div>
+
 ### 十、串口演示设计
 
 串口即是Nexys4实验板与计算机相连的数据端口，我们生成的二进制文件通过串口传到实验板上。同样的，在实验板实时运行的时候，我们也可以通过串口实时地与计算机通讯。
@@ -421,13 +419,15 @@ assign #1 StallD = lwStallD | branchStallD;
 
 下图是power2.s运行时串口调试助手的截图，可以很清楚地看到循环的进行和寄存器的变化。后面输入1byte的地址也可以获得正确的数据。
 
-![power2](/images/power2.png)
+<img src="/images/power2.png" style="width:500px">
 
 串口可以同时进行发送1bit和接受1bit的操作，我们需要自己设计一套特定的编码方案使串口发送的0/1序列可以被解码。以发送数据为例，当我们设定好的tx_sig信号为真时，先发出一个1和一个0表示数据的开始，然后发送8bit的数据，然后再发送2个1表示结束。由于一次只能发送1byte的数据64位的数据则需要8次才能发送完毕。
 
 码元发送的频率被称为波特率，结束后发送2个1则表示有两个停止位，在部分编码方案中还会有校验位的存在。如果没有进行正确的串口设置，同样的数据01可能会得到不同的显示。
 
-![test](/images/test.png)
+<img src="/images/test.png" style="width:500px">
+
+<div STYLE="page-break-after: always;"></div>
 
 顺便总结一下整个系统中各个时钟的频率
 
@@ -455,3 +455,8 @@ assign #1 StallD = lwStallD | branchStallD;
 
 
 
+### 十二、参考文献
+
+1. <a href="/Reference/MIPS64-Vol1.pdf">MIPS64-Vol1.pdf</a>
+2. <a href="/Reference/MIPS64-Vol2.pdf">MIPS64-Vol2.pdf</a>
+3. <a herf="/Reference/流水线图.pdf">流水线图.pdf</a>：原图是课本的作者在另一本书上的配图
