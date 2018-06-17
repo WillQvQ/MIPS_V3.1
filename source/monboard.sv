@@ -26,6 +26,10 @@ module monboard(
     logic [31:0]showdata;
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
+    logic [32:0]rx_check;
+    logic [32:0]rx_checkh;
+    logic [32:0]rx_checkl;
+	logic [7:0] rx_data;
 	logic [7:0] clkshow;
     logic       we;
 	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
@@ -36,7 +40,7 @@ module monboard(
 	assign writedata = high1low ? writedata64[63:32] : writedata64[31:0];
 	assign clkrun = quick ? CLK1_6:CLK0_4;
 	assign clk = clkrun & clken;
-	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg);
+	top top(clk,reset,writedata64,dataadr64,memwrite,readdata64,pclow,addr[4:0],check64,addr,memdata,we,wreg,rx_data,rx_check,rx_checkh,rx_checkl);
 	assign clkshow = clkon ? clks:{sreg[3:0],2'b0,memwrite};
 	assign data = show ? showdata:{pclow,clkshow,addr,check64[7:0]};
 	initial cnt=2'b0;
