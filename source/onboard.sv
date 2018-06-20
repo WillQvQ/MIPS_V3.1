@@ -30,9 +30,9 @@ module onboard(
     logic [31:0]showdata;
     logic [31:0]memdata;
 	logic [4:0] wreg,sreg;
-    logic [32:0]rx_check;
-    logic [32:0]rx_checkh;
-    logic [32:0]rx_checkl;
+    logic [31:0]rx_check;
+    logic [31:0]rx_checkh;
+    logic [31:0]rx_checkl;
 	logic [7:0] rx_data;
 	logic [7:0] clkshow;
     logic [7:0] disp;
